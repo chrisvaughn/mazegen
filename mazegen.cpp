@@ -261,6 +261,45 @@ void mazeGen::GraphicPrint(Disjsets maze, int Rows, int Cols)
 
 }
 
+string mazeGen::buildHTML(Disjsets maze, int Rows, int Cols)
+{
+    string html = "";
+    html += "<table id='mazegen' cellspacing=0 cellpadding=0>\n";
+
+    int index = 0;
+
+    for (int i = 0; i < Rows; i++) //REPEAT FOR EACH ROW
+    {
+        html += "\t<tr height=25>\n";
+        for (int j = 0; j < Cols; j++) //FOR EACH COLUMN
+        {
+            html += "\t\t<td width=24 style='";
+            if (maze.set[index].n)
+            {
+                html += "border-top: 2px black solid;";
+            }
+            if (maze.set[index].w)
+            {
+                html += "border-left: 2px black solid;";
+            }
+            if (maze.set[index].s)
+            {
+                html += "border-bottom: 2px black solid;";
+            }
+            if (maze.set[index].e)
+            {
+                html += "border-right: 2px black solid;";
+            }
+            html += "'</td>\n";
+            index++;
+        }
+        html += "\t</tr>\n";
+    }
+    html += "</table>\n";
+
+    return html;
+}
+
 //************************************************************
 // Function:
 // Pre: NONE

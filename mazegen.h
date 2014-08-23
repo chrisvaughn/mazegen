@@ -16,6 +16,7 @@
 
 
 #include "disjsets.h"
+#include <string>
 
 
 #ifndef _mazeGen_H_
@@ -39,6 +40,7 @@ public:
 
     void print(Disjsets, int, int);
     void GraphicPrint(Disjsets, int, int);
+    std::string buildHTML(Disjsets, int, int);
 };
 
 #endif

@@ -13,8 +13,8 @@
 #
 #****************************************************************
 
-run: disjsets.o driver.o mazegen.o
-	g++ -o run driver.o mazegen.o disjsets.o
+all: disjsets.o driver.o mazegen.o
+	g++ -o mazegen driver.o mazegen.o disjsets.o
 
 disjsets.o: disjsets.cpp
 	g++ -c disjsets.cpp
