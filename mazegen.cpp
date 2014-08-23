@@ -8,8 +8,8 @@
 // Filename: mazegen.cpp
 //
 // Certificate of Authenticity:
-//	I Christopher Vaughn hereby state the following code is
-//	entirely my own work.
+//  I Christopher Vaughn hereby state the following code is
+//  entirely my own work.
 //
 //****************************************************************
 
@@ -19,122 +19,35 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
-	using namespace std;
+using namespace std;
 
-
-//************************************************************
-// Function: 
-// Pre: NONE
-// Post: NONE
-//************************************************************
-	mazeGen::mazeGen()
-	{
-		srand(time(NULL));
-	}
 
 //************************************************************
 // Function:
 // Pre: NONE
 // Post: NONE
 //************************************************************
-	mazeGen::mazeGen(Disjsets maze,int elements)
-	{
-		for(int i=0; i<= elements - 1; i++)
-		{
-			maze.set[i].n = true;
-			maze.set[i].s = true;
-			maze.set[i].e = true;
-			maze.set[i].w = true;
-		}
-		srand(time(NULL));
-	}
+mazeGen::mazeGen()
+{
+    srand(time(NULL));
+}
 
 //************************************************************
 // Function:
 // Pre: NONE
 // Post: NONE
 //************************************************************
-
-	mazeGen::~mazeGen()
-	{
-		NULL;
-	}
-
-//************************************************************
-// Function:
-// Pre: NONE
-// Post: NONE
-//************************************************************
-	int mazeGen::randNum(int max)
-	{
-		int num;
-
-		num = (int)rand()%max;
-
-		return num;
-
-	}
-
-//************************************************************
-// Function:
-// Pre: NONE
-// Post: NONE
-//************************************************************
-	int mazeGen::randDirection(int selected, int Rows, int Cols)
-	{
-		bool valid = false;
-
-		int num;
-
-		while(!valid)
-		{
-			num = rand()%4;
-
-			if(num == 0)
-				NULL;
-
-			else if(num == 1)   //NORTH
-			{
-				if(selected >= Cols)
-					valid = true;
-			}
-
-			else if(num == 2)  //SOUTH
-			{
-				if(selected <= ((Rows*Cols)-1) - Cols)
-					valid = true;
-			}
-
-			else if(num == 3) //EAST
-			{
-				bool isEqual = false;
-
-				for(int i = Cols -1; i <= (Rows*Cols) - 1;i = i + Cols)
-				{
-					if(selected == i)
-						isEqual = true;
-				}
-
-				if(!isEqual)
-					valid = true;
-			}
-
-			else //WEST
-			{
-				bool isEqual = false;
-
-				for(int i = 0; i <= (Rows*Cols) - Cols;i = i + Cols)
-				{
-					if(selected == i)
-						isEqual = true;
-				}
-
-				if(!isEqual)
-					valid = true;
-			}
-		}
-		return num;
-	}
+mazeGen::mazeGen(Disjsets maze, int elements)
+{
+    for (int i = 0; i <= elements - 1; i++)
+    {
+        maze.set[i].n = true;
+        maze.set[i].s = true;
+        maze.set[i].e = true;
+        maze.set[i].w = true;
+    }
+    srand(time(NULL));
+}
 
 //************************************************************
 // Function:
@@ -142,124 +55,86 @@
 // Post: NONE
 //************************************************************
 
-	int mazeGen::computeCell(int selected, int direction, int Cols)
-	{
-		int newCell;
-
-		if(direction == 1)  //NORTH
-			newCell = selected - Cols;
-		else if(direction == 2) // SOUTH
-			newCell = selected + Cols;
-		else if(direction == 3)  //EAST
-			newCell = selected + 1;
-		else //WEST
-			newCell = selected - 1;
-
-		return newCell;
-	}
+mazeGen::~mazeGen()
+{
+    NULL;
+}
 
 //************************************************************
 // Function:
 // Pre: NONE
 // Post: NONE
 //************************************************************
-	void mazeGen::KnockDown(int selected, int direction, Disjsets maze, int Cols)
-	{
-		if(direction == 1) //NORTH
-		{
-			maze.set[selected].n = false;
-			maze.set[computeCell(selected,direction,Cols)].s = false;
-		}
+int mazeGen::randNum(int max)
+{
+    int num;
 
-		else if(direction == 2) //SOUTH
-		{
-			maze.set[selected].s = false;
-			maze.set[computeCell(selected,direction,Cols)].n = false;
-		}
+    num = (int)rand() % max;
 
-		else if(direction == 3) //EAST
-		{
-			maze.set[selected].e = false;
-			maze.set[computeCell(selected,direction,Cols)].w = false;
-		}
+    return num;
 
-		else  //WEST
-		{
-			maze.set[selected].w = false;
-			maze.set[computeCell(selected,direction,Cols)].e = false;
-		}
-	}
+}
 
 //************************************************************
 // Function:
 // Pre: NONE
 // Post: NONE
 //************************************************************
-	void mazeGen::StartFinish(Disjsets maze, int Rows, int Cols)
-	{
-		int start, finish = 0;
+int mazeGen::randDirection(int selected, int Rows, int Cols)
+{
+    bool valid = false;
 
-		start = rand()%(Cols - 1);
+    int num;
 
-		finish = rand()%(Cols - 1); // step 1 of finish
+    while (!valid)
+    {
+        num = rand() % 4;
 
-		finish = ((Rows*Cols) - 1) - finish;
+        if (num == 0)
+            NULL;
 
-		maze.set[start].n = false;
-		maze.set[finish].s = false;
-	}
+        else if (num == 1)  //NORTH
+        {
+            if (selected >= Cols)
+                valid = true;
+        }
 
-//************************************************************
-// Function:
-// Pre: NONE
-// Post: NONE
-//************************************************************
+        else if (num == 2) //SOUTH
+        {
+            if (selected <= ((Rows * Cols) - 1) - Cols)
+                valid = true;
+        }
 
-	void mazeGen::GraphicPrint(Disjsets maze, int Rows, int Cols)
-	{
-		cout<<".";
-		for(int t = 0; t<Cols; t++)  //PRINTS TOP
-		{
-			if(maze.set[t].n)
-				cout<<"_";
-			else
-				cout<<" ";
-			cout<<".";
-		}
+        else if (num == 3) //EAST
+        {
+            bool isEqual = false;
 
-		cout<<endl;
+            for (int i = Cols - 1; i <= (Rows * Cols) - 1; i = i + Cols)
+            {
+                if (selected == i)
+                    isEqual = true;
+            }
 
-		int index = 0;
+            if (!isEqual)
+                valid = true;
+        }
 
-		for(int i=0; i<Rows; i++)  //REPEAT FOR EACH ROW
-		{
-			for(int j=0; j<Cols;j++)  //FOR EACH COLUMN
-			{
-				if(j==0)
-				{
-					if(maze.set[index].w)
-						cout<<"|";
-					else
-						cout<<".";
-				}
+        else //WEST
+        {
+            bool isEqual = false;
 
-				if(maze.set[index].s)
-					cout<<"_";
-				else
-					cout<<" ";
+            for (int i = 0; i <= (Rows * Cols) - Cols; i = i + Cols)
+            {
+                if (selected == i)
+                    isEqual = true;
+            }
 
-				if(maze.set[index].e)
-					cout<<"|";
-				else
-					cout<<".";
-
-				index++;
-			}
-			cout<<endl;
-		}
-		cout<<endl;
-
-	}
+            if (!isEqual)
+                valid = true;
+        }
+    }
+    return num;
+}
 
 //************************************************************
 // Function:
@@ -267,28 +142,153 @@
 // Post: NONE
 //************************************************************
 
-	void mazeGen::print(Disjsets maze, int Rows, int Cols)
-	{
+int mazeGen::computeCell(int selected, int direction, int Cols)
+{
+    int newCell;
 
-		for(int i=0; i<= Rows*Cols-1;i++)
-		{
-			cout<<"Cell: "<<i + 1<<" - ";
-			if(maze.set[i].n)
-				cout<<"N ";
-			else
-				cout<<"  ";
-			if(maze.set[i].s)
-				cout<<"S ";
-			else
-				cout<<"  ";
-			if(maze.set[i].e)
-				cout<<"E ";
-			else
-				cout<<"  ";
-			if(maze.set[i].w)
-				cout<<"W ";
-			else
-				cout<<"  ";
-			cout<<endl;
-		}
-	}
+    if (direction == 1) //NORTH
+        newCell = selected - Cols;
+    else if (direction == 2) // SOUTH
+        newCell = selected + Cols;
+    else if (direction == 3) //EAST
+        newCell = selected + 1;
+    else //WEST
+        newCell = selected - 1;
+
+    return newCell;
+}
+
+//************************************************************
+// Function:
+// Pre: NONE
+// Post: NONE
+//************************************************************
+void mazeGen::KnockDown(int selected, int direction, Disjsets maze, int Cols)
+{
+    if (direction == 1) //NORTH
+    {
+        maze.set[selected].n = false;
+        maze.set[computeCell(selected, direction, Cols)].s = false;
+    }
+
+    else if (direction == 2) //SOUTH
+    {
+        maze.set[selected].s = false;
+        maze.set[computeCell(selected, direction, Cols)].n = false;
+    }
+
+    else if (direction == 3) //EAST
+    {
+        maze.set[selected].e = false;
+        maze.set[computeCell(selected, direction, Cols)].w = false;
+    }
+
+    else  //WEST
+    {
+        maze.set[selected].w = false;
+        maze.set[computeCell(selected, direction, Cols)].e = false;
+    }
+}
+
+//************************************************************
+// Function:
+// Pre: NONE
+// Post: NONE
+//************************************************************
+void mazeGen::StartFinish(Disjsets maze, int Rows, int Cols)
+{
+    int start, finish = 0;
+
+    start = rand() % (Cols - 1);
+
+    finish = rand() % (Cols - 1); // step 1 of finish
+
+    finish = ((Rows * Cols) - 1) - finish;
+
+    maze.set[start].n = false;
+    maze.set[finish].s = false;
+}
+
+//************************************************************
+// Function:
+// Pre: NONE
+// Post: NONE
+//************************************************************
+
+void mazeGen::GraphicPrint(Disjsets maze, int Rows, int Cols)
+{
+    cout << ".";
+    for (int t = 0; t < Cols; t++) //PRINTS TOP
+    {
+        if (maze.set[t].n)
+            cout << "_";
+        else
+            cout << " ";
+        cout << ".";
+    }
+
+    cout << endl;
+
+    int index = 0;
+
+    for (int i = 0; i < Rows; i++) //REPEAT FOR EACH ROW
+    {
+        for (int j = 0; j < Cols; j++) //FOR EACH COLUMN
+        {
+            if (j == 0)
+            {
+                if (maze.set[index].w)
+                    cout << "|";
+                else
+                    cout << ".";
+            }
+
+            if (maze.set[index].s)
+                cout << "_";
+            else
+                cout << " ";
+
+            if (maze.set[index].e)
+                cout << "|";
+            else
+                cout << ".";
+
+            index++;
+        }
+        cout << endl;
+    }
+    cout << endl;
+
+}
+
+//************************************************************
+// Function:
+// Pre: NONE
+// Post: NONE
+//************************************************************
+
+void mazeGen::print(Disjsets maze, int Rows, int Cols)
+{
+
+    for (int i = 0; i <= Rows * Cols - 1; i++)
+    {
+        cout << "Cell: " << i + 1 << " - ";
+        if (maze.set[i].n)
+            cout << "N ";
+        else
+            cout << "  ";
+        if (maze.set[i].s)
+            cout << "S ";
+        else
+            cout << "  ";
+        if (maze.set[i].e)
+            cout << "E ";
+        else
+            cout << "  ";
+        if (maze.set[i].w)
+            cout << "W ";
+        else
+            cout << "  ";
+        cout << endl;
+    }
+}

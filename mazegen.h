@@ -8,8 +8,8 @@
 // Filename: mazegen.h
 //
 // Certificate of Authenticity:
-//	I Christopher Vaughn hereby state the following code is
-//	entirely my own work.
+//  I Christopher Vaughn hereby state the following code is
+//  entirely my own work.
 //
 //****************************************************************
 
@@ -24,21 +24,21 @@
 class mazeGen
 {
 
-	public:
-		mazeGen();
-		mazeGen(Disjsets, int);
-		~mazeGen();
+public:
+    mazeGen();
+    mazeGen(Disjsets, int);
+    ~mazeGen();
 
-		int randNum(int);
-		int randDirection(int, int, int);
+    int randNum(int);
+    int randDirection(int, int, int);
 
-		int computeCell(int, int,int);
-		void KnockDown(int,int, Disjsets, int);
+    int computeCell(int, int, int);
+    void KnockDown(int, int, Disjsets, int);
 
-		void StartFinish(Disjsets, int, int);
+    void StartFinish(Disjsets, int, int);
 
-		void print(Disjsets, int, int);
-		void GraphicPrint(Disjsets, int, int);
+    void print(Disjsets, int, int);
+    void GraphicPrint(Disjsets, int, int);
 };
 
 #endif

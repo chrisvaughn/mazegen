@@ -8,8 +8,8 @@
 // Filename: disjsets.h
 //
 // Certificate of Authenticity:
-//	I Christopher Vaughn hereby state the following code is
-//	entirely my own work.
+//  I Christopher Vaughn hereby state the following code is
+//  entirely my own work.
 //
 //****************************************************************
 
@@ -18,29 +18,29 @@
 
 struct CellInfo
 {
-	int parent;
-	bool n;
-	bool s;
-	bool e;
-	bool w;
+    int parent;
+    bool n;
+    bool s;
+    bool e;
+    bool w;
 };
 
 
 class Disjsets
 {
-	public:
-		explicit Disjsets(int);
+public:
+    explicit Disjsets(int);
 
-		int find(int);
-		void unionSets(int, int);
-		void print();
-		bool OnlyOne();
-		int WhatElements();
+    int find(int);
+    void unionSets(int, int);
+    void print();
+    bool OnlyOne();
+    int WhatElements();
 
-		CellInfo *set;
+    CellInfo *set;
 
-	private:
-		int Elements;
+private:
+    int Elements;
 };
 
 #endif

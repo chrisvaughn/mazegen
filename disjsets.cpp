@@ -8,14 +8,14 @@
 // Filename: disjsets.cpp
 //
 // Certificate of Authenticity:
-//	I Christopher Vaughn hereby state the following code is
-//	entirely my own work.
+//  I Christopher Vaughn hereby state the following code is
+//  entirely my own work.
 //
 //****************************************************************
 
 #include "disjsets.h"
 #include <iostream>
-	using namespace std;
+using namespace std;
 
 //************************************************************
 // Function: Disjsets CONSTRUCTOR
@@ -25,99 +25,99 @@
 
 Disjsets::Disjsets(int numElements)
 {
-	Elements = numElements;
+    Elements = numElements;
 
-	set = new CellInfo[Elements];
+    set = new CellInfo[Elements];
 
-	for(int i=0; i <= Elements - 1; i++)
-	{
-		set[i].parent = -1;
-	}
+    for (int i = 0; i <= Elements - 1; i++)
+    {
+        set[i].parent = -1;
+    }
 }
 
 //************************************************************
-// Function: 
+// Function:
 // Pre: NONE
 // Post: NONE
 //************************************************************
 
 int Disjsets::find(int index)
 {
-	if(set[index].parent < 0)
-	{
-		return index;
-	}
+    if (set[index].parent < 0)
+    {
+        return index;
+    }
 
-	else
-		return set[index].parent = find(set[index].parent);
+    else
+        return set[index].parent = find(set[index].parent);
 
 }
 
 //************************************************************
-// Function: 
+// Function:
 // Pre: NONE
 // Post: NONE
 //************************************************************
 
 void Disjsets::unionSets(int root1, int root2)
 {
-	if(set[root1].parent < set[root2].parent)
-	{
-		int temp = set[root2].parent;
-		set[root2].parent = root1;
-		set[root1].parent = set[root1].parent + temp;
-	}
+    if (set[root1].parent < set[root2].parent)
+    {
+        int temp = set[root2].parent;
+        set[root2].parent = root1;
+        set[root1].parent = set[root1].parent + temp;
+    }
 
-	else if(set[root2].parent < set[root1].parent)
-	{
-		int temp = set[root1].parent;
-		set[root1].parent = root2;
-		set[root2].parent = set[root2].parent + temp;
-	}
+    else if (set[root2].parent < set[root1].parent)
+    {
+        int temp = set[root1].parent;
+        set[root1].parent = root2;
+        set[root2].parent = set[root2].parent + temp;
+    }
 
-	else
-	{
-		if(set[root1].parent == set[root2].parent)
-			set[root1].parent = 2*set[root1].parent;
-		set[root2].parent = root1;
-	}
+    else
+    {
+        if (set[root1].parent == set[root2].parent)
+            set[root1].parent = 2 * set[root1].parent;
+        set[root2].parent = root1;
+    }
 }
 
 //************************************************************
-// Function: 
+// Function:
 // Pre: NONE
 // Post: NONE
 //************************************************************
 
 void Disjsets::print()
 {
-	for(int i=0; i <= Elements - 1; i++)
-	{
-		cout<<set[i].parent<<" ";
-	}
-	cout<<endl;
+    for (int i = 0; i <= Elements - 1; i++)
+    {
+        cout << set[i].parent << " ";
+    }
+    cout << endl;
 
 }
 
 //************************************************************
-// Function: 
+// Function:
 // Pre: NONE
 // Post: NONE
 //************************************************************
 
 bool Disjsets::OnlyOne()
 {
-	int numChildren = Elements*-1;
+    int numChildren = Elements * -1;
 
-	bool OnlyOne = false;
+    bool OnlyOne = false;
 
-	for(int i = 0;i<= Elements-1;i++)
-	{
-		if(set[i].parent == numChildren)
-			OnlyOne = true;
-	}
+    for (int i = 0; i <= Elements - 1; i++)
+    {
+        if (set[i].parent == numChildren)
+            OnlyOne = true;
+    }
 
-	return OnlyOne;
+    return OnlyOne;
 }
 
 //************************************************************
@@ -128,5 +128,5 @@ bool Disjsets::OnlyOne()
 
 int Disjsets::WhatElements()
 {
-	return Elements;
+    return Elements;
 }

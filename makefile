@@ -14,14 +14,14 @@
 #****************************************************************
 
 run: disjsets.o driver.o mazegen.o
-	CC -o run driver.o mazegen.o disjsets.o
+	g++ -o run driver.o mazegen.o disjsets.o
 
 disjsets.o: disjsets.cpp
-	CC -c disjsets.cpp
+	g++ -c disjsets.cpp
 
 mazegen.o: mazegen.cpp
-	CC -c mazegen.cpp
+	g++ -c mazegen.cpp
 
 driver.o: driver.cpp
-	CC -c driver.cpp
+	g++ -c driver.cpp
 
